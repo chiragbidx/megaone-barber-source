@@ -1,9 +1,11 @@
-FROM node:20
+FROM node:20-alpine
+
+# Install git (needed for repo syncing)
+RUN apk add --no-cache git
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
-
+# Copy only what we need for runtime (static files + scripts)
 COPY . .
 
 EXPOSE 8080
